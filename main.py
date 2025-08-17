@@ -12,7 +12,30 @@
 #
 # Usage:
 #   1. Set BASE_FOLDER to the root directory of your course.
-#      Example: BASE_FOLDER = r"D:\Training\Python-with-Gandalf.the.Gray"
+#
+#     Example:
+#           BASE_FOLDER = r"D:\Training\Python-with-Gandalf.the.Gray"
+#
+#     Where the folder structure should look like this:
+#
+#           Python-with-Gandalf.the.Gray/
+#           ├── 01 - Introduction
+#           │   ├── 01 - Getting Started.srt
+#           │   ├── 01 - Getting Started.mp4
+#           │   ├── 02 - Basic Concepts.srt
+#           │   ├── 02 - Basic Concepts.mp4
+#           ├── 02 - Advanced Topics
+#           │   ├── 1. - Object-Oriented Programming.srt
+#           │   ├── 1. - Object-Oriented Programming.mp4
+#           │   ├── 2. - Functional Programming.srt
+#           │   ├── 2. - Functional Programming.mp4
+#           ├── 03 - Conclusion
+#           │   ├── 01 - Developers path.srt
+#           │   ├── 02 - Developers path.mp4
+#           └── 04 - Bonus Content
+#               ├── 01 - Bonus Topic.srt
+#               ├── 01 - Bonus Topic.mp4
+#
 #   2. Run the script: python main.py
 #   3. Output will be saved as MERGED_SUBTITLES.txt
 #
