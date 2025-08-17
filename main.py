@@ -19,20 +19,20 @@
 #     Where the folder structure should look like this:
 #
 #           Python-with-Gandalf.the.Gray/
-#           ├── 01 - Introduction
+#           ├── 01 - Introduction/
 #           │   ├── 01 - Getting Started.srt
 #           │   ├── 01 - Getting Started.mp4
 #           │   ├── 02 - Basic Concepts.srt
 #           │   ├── 02 - Basic Concepts.mp4
-#           ├── 02 - Advanced Topics
+#           ├── 02 - Advanced Topics/
 #           │   ├── 1. - Object-Oriented Programming.srt
 #           │   ├── 1. - Object-Oriented Programming.mp4
 #           │   ├── 2. - Functional Programming.srt
 #           │   ├── 2. - Functional Programming.mp4
-#           ├── 03 - Conclusion
+#           ├── 03 - Conclusion/
 #           │   ├── 01 - Developers path.srt
 #           │   ├── 02 - Developers path.mp4
-#           └── 04 - Bonus Content
+#           └── 04 - Bonus Content/
 #               ├── 01 - Bonus Topic.srt
 #               ├── 01 - Bonus Topic.mp4
 #
