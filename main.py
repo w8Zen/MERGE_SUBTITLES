@@ -44,7 +44,7 @@
 import os
 import re
 
-BASE_FOLDER = r"D:\Course\Udemy-The.Git.&.Github.Bootcamp"
+BASE_FOLDER = r"YOUR_COURSE_FOLDER"
 OUTPUT_FILE = r"MERGED_SUBTITLES.txt"
 
 
@@ -122,10 +122,11 @@ def merge_subtitles(paths: list[str]) -> str:
     """
 
     merged: list[str] = []
+
     for path in paths:
         for root, _dirs, _files in os.walk(path):
             folder = os.path.basename(root)
-            merged.append(f"--- Folder: {folder} ---")
+            merged.append(f"--- START Folder: {folder} ---")
             sort_files = sort_content(root)
             for file in sort_files:
                 if file.endswith(".srt"):
@@ -133,6 +134,7 @@ def merge_subtitles(paths: list[str]) -> str:
                     cleaned = clean_subtitle(file_path)
                     if cleaned:
                         merged.append(f"--- File: {file} ---\n\n{cleaned}\n")
+            merged.append(f"--- STOP Folder: {folder} ---\n\n")
     return "\n".join(merged)
 
 
