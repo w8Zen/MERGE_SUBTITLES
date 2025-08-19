@@ -44,11 +44,11 @@
 import os
 import re
 
-BASE_FOLDER = r"YOUR_COURSE_FOLDER"
+BASE_FOLDER = r"D:\Course\Udemy-The.Git.&.Github.Bootcamp"
 OUTPUT_FILE = r"MERGED_SUBTITLES.txt"
 
 
-def get_sorted_subdirs(base_dir: str) -> list[str]:
+def sort_content(folder_content: str) -> list[str]:
     """
     Returns a naturally sorted list of subdirectories in the given base directory.
 
@@ -61,12 +61,12 @@ def get_sorted_subdirs(base_dir: str) -> list[str]:
 
     try:
         return sorted(
-            os.listdir(base_dir),
+            os.listdir(folder_content),
             key=lambda x: [int(part) if part.isdigit() else part.lower()
                            for part in re.split(r'(\d+)', x)]
         )
     except FileNotFoundError:
-        print(f"ERROR: Directory '{base_dir}' not found.")
+        print(f"ERROR: Directory '{folder_content}' not found.")
     except Exception as e:
         print(f"ERROR: Unexpected error while listing subdirectories - {e}")
     return []
@@ -123,10 +123,11 @@ def merge_subtitles(paths: list[str]) -> str:
 
     merged: list[str] = []
     for path in paths:
-        for root, _, files in os.walk(path):
+        for root, _dirs, _files in os.walk(path):
             folder = os.path.basename(root)
             merged.append(f"--- Folder: {folder} ---")
-            for file in files:
+            sort_files = sort_content(root)
+            for file in sort_files:
                 if file.endswith(".srt"):
                     file_path = os.path.join(root, file)
                     cleaned = clean_subtitle(file_path)
@@ -161,7 +162,7 @@ def main():
     Main function to initiate the subtitle merging process.
     """
 
-    subdirs = get_sorted_subdirs(BASE_FOLDER)
+    subdirs = sort_content(BASE_FOLDER)
     if subdirs:
         paths = build_section_paths(BASE_FOLDER, subdirs)
         merged_content = merge_subtitles(paths)
