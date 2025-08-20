@@ -19,22 +19,26 @@
 #     Where the folder structure should look like this:
 #
 #           Python-with-Gandalf.the.Gray/
-#           ├── 01 - Introduction/
-#           │   ├── 01 - Getting Started.srt
-#           │   ├── 01 - Getting Started.mp4
-#           │   ├── 02 - Basic Concepts.srt
-#           │   └── 02 - Basic Concepts.mp4
-#           ├── 02 - Advanced Topics/
-#           │   ├── 1. - Object-Oriented Programming.srt
-#           │   ├── 1. - Object-Oriented Programming.mp4
-#           │   ├── 2. - Functional Programming.srt
-#           │   └── 2. - Functional Programming.mp4
-#           ├── 03 - Conclusion/
-#           │   ├── 01 - Developers path.srt
-#           │   └── 02 - Developers path.mp4
-#           └── 04 - Bonus Content/
-#               ├── 01 - Bonus Topic.srt
-#               └── 01 - Bonus Topic.mp4
+#           ├── 1. Introduction/
+#           │   ├── 1. Getting Started.mp4
+#           │   ├── 1. Getting Started.srt
+#           │   ├── 1.1 Getting Started.html
+#           │   ├── 2. Basic Concepts.mp4
+#           │   ├── 2. Basic Concepts.srt
+#           │   └── 2.1 Basic Concepts.html
+#           ├── 2. Advanced Topics/
+#           │   ├── 1. Object-Oriented Programming.mp4
+#           │   ├── 1. Object-Oriented Programming.srt
+#           │   ├── 1.1 Object-Oriented Programming.html
+#           │   ├── 2. Functional Programming.mp4
+#           │   ├── 2. Functional Programming.srt
+#           │   └── 2.1 Functional Programming.html
+#           ├── 3. Conclusion/
+#           │   ├── 1. Developers path.mp4
+#           │   └── 1. Developers path.str
+#           └── 4. Bonus Content/
+#               ├── 1. Bonus Topic.mp4
+#               └── 1. Bonus Topic.str
 #
 #   2. Run the script: python main.py
 #   3. Output will be saved as MERGED_SUBTITLES.txt
@@ -44,7 +48,7 @@
 import os
 import re
 
-BASE_FOLDER = r"YOUR_COURSE_FOLDER"
+BASE_FOLDER = r"YOUR_COURSE_PATH"  # Set your course folder path here
 OUTPUT_FILE = r"MERGED_SUBTITLES.txt"
 
 
@@ -118,23 +122,34 @@ def merge_subtitles(paths: list[str]) -> str:
         paths (list[str]): List of section folder paths.
 
     Returns:
-        str: Combined subtitle content.
+        str: Combined subtitle content and web documatation.
     """
 
     merged: list[str] = []
+    links: list[str] = []
 
     for path in paths:
         for root, _dirs, _files in os.walk(path):
             folder = os.path.basename(root)
-            merged.append(f"--- START Folder: {folder} ---")
+            merged.append(f"--- START FOLDER: {folder} ---")
             sort_files = sort_content(root)
             for file in sort_files:
                 if file.endswith(".srt"):
                     file_path = os.path.join(root, file)
                     cleaned = clean_subtitle(file_path)
                     if cleaned:
-                        merged.append(f"--- File: {file} ---\n\n{cleaned}\n")
-            merged.append(f"--- STOP Folder: {folder} ---\n\n")
+                        merged.append(f"--- FILE: {file} ---\n\n{cleaned}\n")
+                elif file.endswith(".html"):
+                    link_path = os.path.join(root, file)
+                    links.append(f"\n{link_path}\n")
+                else:
+                    pass
+            if links:
+                merged.append(f"--- WEB DOCUMENTATION ---")
+                for link in links:
+                    merged.append(link)
+                links.clear()
+            merged.append(f"--- STOP FOLDER: {folder} ---\n\n")
     return "\n".join(merged)
 
 
